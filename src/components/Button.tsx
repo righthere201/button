@@ -6,9 +6,28 @@ interface Props {
   onClick: () => void;
 }
 
-const Button = ({ children, onClick, color = "primary" }: Props) => {
+const Button = ({ 
+  children, 
+  onClick }: Props) => {
+
+    const [color, setColor] = React.useState<string>();
+
+    const getRandomInt = (max: number) => {
+      return Math.floor(Math.random() * max);
+    }
+
+  const getColor = () => {
+    const colorArray = ['primary', 'secondary',  'danger']
+    setColor(colorArray[getRandomInt(3)])
+  };
+
   return (
-    <button className={"btn btn-" + color} onClick={onClick}>
+    <button 
+    className={"btn btn-" + color} 
+    onClick={() => {
+      onClick();
+      getColor();
+    }}>
       {children}
     </button>
   );
